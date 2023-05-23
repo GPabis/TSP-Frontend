@@ -40,8 +40,8 @@ jobs:
           envs: GITHUB_USERNAME,GITHUB_TOKEN
           script: |
             docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
-            docker pull ghcr.io/GPabis/TSP-Frontend/tsp-frontend:latest
+            docker pull ghcr.io/GPabis/tsp-frontend/tsp-frontend:latest
             docker stop tsp-frontend
             docker system prune -f
-            docker run --name tsp-frontend -dit -p 3000:80 ghcr.io/GPabis/TSP-Frontend/tsp-frontend:latest
+            docker run --name tsp-frontend -dit -p 3000:80 ghcr.io/GPabis/tsp-frontend/tsp-frontend:latest
             
