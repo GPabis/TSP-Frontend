@@ -1,9 +1,9 @@
 import {observer} from "mobx-react-lite";
-import {AppState} from "./App.state";
 import {Polyline} from "react-leaflet";
+import {TSPMapState} from "./TSPMap.state";
 
 interface PropsType {
-  state: AppState;
+  state: TSPMapState;
 };
 
 export const Route = observer<PropsType>((props) => {

@@ -1,10 +1,12 @@
-import { makeAutoObservable, toJS } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import L, {BaseIconOptions, LatLngExpression} from "leaflet";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export interface AntColonyResponse {
     bestPathIndexes: number[];
     distance: number;
-    time: number;
+    time: string;
 }
 
 export interface MapPointType {
@@ -18,12 +20,14 @@ export interface MapPointType {
 
 type AlgorithmType = 'antColonyAlgorithm' | 'branchAndBoundAlgorithm' | 'linKernighanAlgorithm';
 
-export class AppState {
+export class TSPMapState {
     public pointsArray: MapPointType[] = [];
     public distance: number = 0;
     public algorithm?: AlgorithmType = 'antColonyAlgorithm'
+    public time: string = '0';
+    public loading: boolean = false;
 
-    public constructor() {
+    public constructor(public readonly isGuest: boolean) {
         makeAutoObservable(this);
     }
 
@@ -35,8 +39,18 @@ export class AppState {
         return this.pointsArray;
     };
 
-    public get distanceValue() {
-        return this.distance;
+    public get disallowRequest(): boolean {
+        if(!this.isGuest) return false;
+
+        if(this.algorithm === 'antColonyAlgorithm') {
+            return this.pointsArray.length > 100;
+        }
+
+        if(this.algorithm === 'branchAndBoundAlgorithm') {
+            return this.pointsArray.length > 25;
+        }
+
+        return this.pointsArray.length > 150;
     }
 
     public get route(): LatLngExpression[] {
@@ -109,12 +123,17 @@ export class AppState {
     }
 
     public setAlgorithm(algorithm: string) {
-        console.log(algorithm);
         this.algorithm = algorithm as AlgorithmType;
-        console.log(this.algorithm)
+    }
+
+    public resetPoints() {
+        this.pointsArray = [];
+        this.distance = 0;
+        this.time = '0';
     }
 
     public async findRoute() {
+        if(!this.disallowRequest) {
             const body = {
                 nodes: this.pointsArray.map(point => {
                     return {
@@ -125,8 +144,10 @@ export class AppState {
                 })
             }
 
-            const response = await fetch(`http://localhost:3000/algorithms/${this.algorithm}`, {
+            this.loading = true;
+            const response = await fetch(`${API_URL}/algorithms/${this.algorithm}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
@@ -144,6 +165,8 @@ export class AppState {
             });
 
             this.distance = parseFloat(String(data.distance.toFixed(3)));
-
+            this.time = data.time;
+            this.loading = false;
+        }
     }
 }

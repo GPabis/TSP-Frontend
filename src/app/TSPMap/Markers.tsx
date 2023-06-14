@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite"
-import {useState} from "react";
-import {AppState, MapPointType} from "./App.state";
+import {MapPointType} from "../App.state";
 import {Marker, Popup, useMapEvents} from "react-leaflet";
+import {TSPMapState} from "./TSPMap.state";
 
 interface PropsType {
-    state: AppState;
+    state: TSPMapState;
 }
 export const Markers = observer<PropsType>((props) => {
     const {state} = props;
@@ -16,10 +16,10 @@ export const Markers = observer<PropsType>((props) => {
                     lat: e.latlng.lat,
                     lng: e.latlng.lng,
                     name: `[${state.points.length + 1}] ${e.latlng.lat}, ${e.latlng.lng}`,
+                    nodeIndex: state.points.length + 1,
                     startingPoint: state.points.length === 0,
                     order: undefined,
                 }
-                console.log('test');
                 state.addPoint(point)
                 map.flyTo(e.latlng, map.getZoom());
             }

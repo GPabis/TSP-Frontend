@@ -1,8 +1,8 @@
-import {AppState} from "./App.state";
 import {observer} from "mobx-react-lite";
+import {TSPMapState} from "./TSPMap.state";
 
 interface PropsType {
-    state: AppState;
+    state: TSPMapState;
 }
 
 export const PointsCounter = observer((props: PropsType) => {
