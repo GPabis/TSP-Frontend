@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build and Deploy
+        id: vars
+        run: echo ::set-output name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
@@ -28,7 +30,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           buildargs: VITE_API_URL
           dockerfile: Dockerfile
-          tags: latest
+          tags: "latest,${{ steps.vars.outputs.RELEASE_VERSION }}"
       - name: Deploy package to vps
         uses: appleboy/ssh-action@master
         env:
