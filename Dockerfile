@@ -1,4 +1,4 @@
-FROM node:20-alpine as builder
+FROM tiangolo/node-frontend:10 as builder
 
 WORKDIR '/app'
 
@@ -14,3 +14,4 @@ RUN npm run build
 
 FROM nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /nginx.conf /etc/nginx/conf.d/default.conf
