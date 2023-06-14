@@ -20,7 +20,7 @@ jobs:
       - name: Build and Deploy
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
-          APU_URL: ${{ secrets.API_URL }}
+          APU_URL: ${{ secrets.VITE_API_URL }}
         with:
           name: GPabis/TSPMap-Frontend/tsp-frontend
           registry: ghcr.io
