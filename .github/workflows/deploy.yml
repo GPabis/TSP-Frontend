@@ -17,9 +17,10 @@ jobs:
     container: node:14
     steps:
       - uses: actions/checkout@v2
-      - name: Build and Deploy
+      - name: Set output
         id: vars
         run: echo ::set-output name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+      - name: Build and Deploy
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
