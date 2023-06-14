@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {Navigate, Outlet, useNavigate} from "@tanstack/router";
+import {Link, Navigate, Outlet, useNavigate} from "@tanstack/router";
 import {useContext} from "react";
 import {AppContext} from "../store/appStore";
 
@@ -15,6 +15,7 @@ export const Redirect = observer(() => {
 
 export const App = observer(() =>  {
   return <div>
+    <Link to={'/tsp'}>TSP</Link>
     <Outlet />
   </div>
 });
