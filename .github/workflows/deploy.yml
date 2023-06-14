@@ -25,7 +25,7 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
         with:
-          name: GPabis/TSPMap-Frontend/tsp-frontend
+          name: GPabis/TSP-Frontend/tsp-frontend
           registry: ghcr.io
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
