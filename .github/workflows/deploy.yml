@@ -20,13 +20,13 @@ jobs:
       - name: Build and Deploy
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
-          APU_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
         with:
           name: GPabis/TSPMap-Frontend/tsp-frontend
           registry: ghcr.io
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          buildargs: API_URL
+          buildargs: VITE_API_URL
           dockerfile: Dockerfile
           tags: latest
       - name: Deploy package to vps
