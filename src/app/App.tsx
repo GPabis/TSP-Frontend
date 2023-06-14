@@ -1,21 +1,23 @@
 import {observer} from "mobx-react-lite";
 import {Link, Navigate, Outlet, useNavigate} from "@tanstack/router";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {AppContext} from "../store/appStore";
 
 export const Redirect = observer(() => {
   const {auth} = useContext(AppContext)
+  const navigate = useNavigate();
 
-  if(auth.isAuth) {
-    return <Navigate to='/tsp' />
-  }
+  useEffect(() => {
+    if(auth.isAuth) {
+      navigate({to: '/tsp'});
+    }
+  }, [auth.isAuth]);
 
   return <Navigate to='/auth' />
 });
 
 export const App = observer(() =>  {
   return <div>
-    <Link to={'/tsp'}>TSP</Link>
     <Outlet />
   </div>
 });
