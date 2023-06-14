@@ -16,7 +16,7 @@ import {GuestPanel} from "./GuestPanel";
 export const TSPMap = observer(() =>  {
     const {auth} = useContext(AppContext)
     const [state] = useState(() => new TSPMapState(auth.username === 'Guest'));
-
+    console.log(auth.isAuth);
     if(!auth.isAuth) return <Navigate to='/auth' />
 
     return <div className="h-screen w-screen relative">

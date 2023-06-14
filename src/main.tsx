@@ -29,7 +29,7 @@ const LoginRoute = new Route({
     component: LoginPage,
 });
 
-const routeTree = rootRoute.addChildren([TSPRoute, LoginRoute, DefaultPathRoute]);
+const routeTree = rootRoute.addChildren([LoginRoute, DefaultPathRoute, TSPRoute]);
 
 const router = new Router({routeTree});
 
