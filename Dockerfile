@@ -1,6 +1,10 @@
 FROM node:20-alpine as builder
 
 WORKDIR '/app'
+
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 RUN npm install --global nx@latest
 COPY package.json .
 COPY package-lock.json .
