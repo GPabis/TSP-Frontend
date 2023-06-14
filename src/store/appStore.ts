@@ -45,7 +45,6 @@ class AuthState {
                 this.isAuth = true;
                 this.email = result.email;
                 this.username = result.name;
-                console.log(this.username)
                 return;
             }
 

@@ -14,8 +14,8 @@ export const Redirect = observer(() => {
 });
 
 export const App = observer(() =>  {
-  return <>
+  return <div>
     <Outlet />
-  </>
+  </div>
 });
 export default App;
