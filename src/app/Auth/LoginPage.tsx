@@ -1,7 +1,7 @@
 import {observer} from "mobx-react-lite";
 import {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../store/appStore";
-import {useNavigate} from "@tanstack/router";
+import {Navigate, useNavigate} from "@tanstack/router";
 
 const LoginPage = observer(() => {
     const {auth} = useContext(AppContext)
@@ -10,11 +10,14 @@ const LoginPage = observer(() => {
     useEffect(() => {
         const whoami = async () => {
             await auth.whoAmI();
-            if(auth.isAuth) await navigate({to: '/tsp'});
         }
         whoami();
 
         }, [])
+
+    if (auth.isAuth) {
+        return <Navigate to={'/tsp'} />
+    }
 
     return <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <div className="flex flex-col items-center justify-center w-full max-w-md p-6 bg-white rounded-md shadow-md">
