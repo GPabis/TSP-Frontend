@@ -21,6 +21,7 @@ export const Markers = observer<PropsType>((props) => {
                     order: undefined,
                 }
                 map.flyTo(e.latlng, map.getZoom());
+                state.addPoint(point);
             }
         },
     })

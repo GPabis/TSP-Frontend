@@ -99,7 +99,10 @@ export class TSPMapState {
             if(!updatedPoints.find(p => p.startingPoint)) {
                 updatedPoints[0].startingPoint = true;
             }
-            this.pointsArray = updatedPoints;
+            this.pointsArray = updatedPoints.map((point, index) => {
+                point.nodeIndex = index + 1;
+                return point;
+            });
         }
     }
 
