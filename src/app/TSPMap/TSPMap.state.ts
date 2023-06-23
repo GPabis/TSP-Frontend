@@ -23,7 +23,7 @@ type AlgorithmType = 'antColonyAlgorithm' | 'branchAndBoundAlgorithm' | 'linKern
 export class TSPMapState {
     public pointsArray: MapPointType[] = [];
     public distance: number = 0;
-    public algorithm?: AlgorithmType = 'antColonyAlgorithm'
+    public algorithm: AlgorithmType = 'antColonyAlgorithm'
     public time: string = '0';
     public loading: boolean = false;
 
