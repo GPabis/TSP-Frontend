@@ -18,10 +18,18 @@ export interface MapPointType {
     order?: number;
 }
 
+export interface HistoryResults {
+    points: string;
+    distance: number;
+    time: string;
+    algorithm: AlgorithmType;
+}
+
 type AlgorithmType = 'antColonyAlgorithm' | 'branchAndBoundAlgorithm' | 'linKernighanAlgorithm';
 
 export class TSPMapState {
     public pointsArray: MapPointType[] = [];
+    public history: HistoryResults[] = [];
     public distance: number = 0;
     public algorithm: AlgorithmType = 'antColonyAlgorithm'
     public time: string = '0';
@@ -170,6 +178,12 @@ export class TSPMapState {
             this.distance = parseFloat(String(data.distance.toFixed(3)));
             this.time = data.time;
             this.loading = false;
+            this.history.push({
+                points: this.pointsArray.sort((a, b) => a.order! - b.order!).map(point => point.nodeIndex).join(', '),
+                distance: this.distance,
+                time: this.time,
+                algorithm: this.algorithm
+            });
         }
     }
 }

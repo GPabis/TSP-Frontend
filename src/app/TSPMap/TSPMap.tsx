@@ -61,7 +61,7 @@ export const TSPMap = observer(() =>  {
 
     if(!auth.isAuth) return <Navigate to='/auth' />
 
-    return <div className="h-screen w-screen relative">
+    return <><div className="h-screen relative">
         <PointsCounter state={state}/>
         <DistancePanel state={state}/>
         <AlgorithmSelect state={state}/>
@@ -74,5 +74,26 @@ export const TSPMap = observer(() =>  {
             <Search provider={new OpenStreetMapProvider()} state={state} />
         </MapContainer>
     </div>
+        <table className='table-auto w-full'>
+            <thead className='bg-gray-200 text-gray-600'>
+                <tr className='border-b-2 border-gray-400'>
+                    <th>No.</th>
+                    <th>Algorithm</th>
+                    <th>Distance</th>
+                    <th>Time</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody className='text-center text-gray-600 border-b-2 border-gray-400'>
+                {state.history.map((result, index) => <tr key={result.algorithm}>
+                    <td className='w-16'>{index + 1}</td>
+                    <td className='w-72'>{result.algorithm}</td>
+                    <td className='w-40'>{result.distance}</td>
+                    <td className='w-40'>{result.time}</td>
+                    <td className='text-left max-w-0 text-xs'>{result.points}</td>
+                </tr>)}
+            </tbody>
+        </table>
+    </>
 });
 export default TSPMap;
