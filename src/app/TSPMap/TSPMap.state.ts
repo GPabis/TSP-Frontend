@@ -146,7 +146,9 @@ export class TSPMapState {
     public async findRoute() {
         if(!this.disallowRequest) {
             const body = {
-                nodes: this.pointsArray.map(point => {
+                nodes: this.pointsArray
+                    .sort((point, point2) => point.nodeIndex - point2.nodeIndex)
+                    .map(point => {
                     return {
                         nodeIndex: point.nodeIndex,
                         lat: point.lat,
